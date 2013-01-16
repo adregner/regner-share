@@ -1,0 +1,3 @@
+[submodule "vendor/modalbox"]
+	path = vendor/modalbox
+	url = git://github.com/okonet/modalbox.git
