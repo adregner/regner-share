@@ -1,0 +1,39 @@
+%h1 Items
+
+.breadcrumbs
+  -if request.path.split('/').count > 2 or true
+    .crumb= link_to "Home", url(:view, :tree)
+  - request.path.split('/')[2..-2].each do |crumb|
+    - past_crumbs = (past_crumbs ? "#{past_crumbs}/" : "") + crumb
+    .crumb= link_to crumb, url(:view, :tree) + "/#{past_crumbs}"
+
+  .clear
+
+- if current_account.role == "admin"
+  #new_access_token
+    - form_tag url(:share, :new) do
+      = select_tag :items, :multiple => "multiple", :class => :hidden, :id => "item_list"
+      .group{:id => :user_share_group}
+        User:
+        = button_tag "Select Users", :id => :user_share_button
+        = select_tag :user_all, :options => User.all.map{|user| [user.name || user.email, user.id] }, :multiple => "multiple", :id => :user_share_list_all
+        = select_tag :user, :id => :user_share_list, :class => :hidden, :multiple => "multiple", :options => []
+      .group
+        New invitation (seperate with space):
+        = text_field_tag :invitees
+      .group
+        Description (optional):
+        = text_field_tag :desc
+      .group
+        = submit_tag "Share these items", :class => :button
+
+- if @item # this is a single file
+  .item
+    = image_tag download_url(@item, @rm_prefix, "1024x768")
+
+- else
+  #items
+    - @items.each_pair do |item, values|
+      %div.item{id: "item-#{values["._id"] || item.gsub(/[^a-z0-9_-]+/i, '')}", "data-name" => item}
+        = partial 'view/view_item', :locals => { :item => item, :values => values }
+  

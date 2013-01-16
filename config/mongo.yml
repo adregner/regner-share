@@ -1,0 +1,6 @@
+development:
+  sessions:
+    default:
+      database: regner_share
+      hosts:
+        - localhost:27017

@@ -1,0 +1,13 @@
+- if values["._id"] and is_image?(item)
+  = link_to image_tag(download_url(values["._id"], @rm_prefix, "200x200-n"), {"data-id" => values["._id"], :class => :item}), "#{request.path}/#{item}"
+- elsif values["._id"]
+  = link_to image_tag('unknown.png', {"data-id" => values["._id"], :class => :item}), "#{request.path}/#{item}"
+- else
+  = link_to image_tag('folder.png', {"data-id" => values["._id"], :class => :item}), "#{request.path}/#{item}"
+
+.info
+  - if values["._id"] # this is a file
+    = link_to "share", "", {"data-id" => values["._id"], :class => :item}
+    = item
+  - else # this is a directory
+    = "#{item} (#{values.keys.count} items)"

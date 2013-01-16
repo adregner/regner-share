@@ -1,0 +1,18 @@
+%h1 Profile
+
+%p.group
+  Name:
+  = current_account.name
+
+%p.group
+  Email:
+  = current_account.email
+
+%p.group
+  Linked Accounts:
+  = link_to "(add)", url(:sessions, :new)
+  -current_account.accounts.each do |account|
+    .account
+      = account.provider
+      = "-"
+      = account.auth_id

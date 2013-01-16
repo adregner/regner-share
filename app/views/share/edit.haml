@@ -1,0 +1,11 @@
+%h1 Edit Access Token
+
+.group= button_to "Delete", url(:share, :destroy, :id => @token.id), :method => :delete
+
+- form_for :token, url(:share, :update, :id => @token.id) do |f|
+  .group
+    Description:
+    =f.text_field :desc
+  
+  .group
+    =f.submit "Save", :class => :button

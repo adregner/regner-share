@@ -1,0 +1,11 @@
+%h1 Login
+.help
+  You can log in with your existing account at any one of the below sites:
+
+- if not @unused_auth_services.empty?
+  - @unused_auth_services.each do |service|
+    .auth-service
+      = service[:href]
+- else
+  You have already linked all supported account types.
+

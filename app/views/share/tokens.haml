@@ -1,0 +1,18 @@
+%h1 Access Tokens
+
+%table.tokens
+  %tr.heading
+    %th
+    %th User
+    %th Description
+    %th Number of items
+    %th Date Created
+  - @tokens.each do |token|
+    %tr.token
+      %td
+        = button_to "edit", url(:share, :edit, :id => token.id), :method => :get
+        = button_to "delete", url(:share, :destroy, :id => token.id), :method => :delete
+      %td= token.user.name or token.user.email rescue "nil"
+      %td= token.desc
+      %td= token.items.count
+      %td= token.created_at

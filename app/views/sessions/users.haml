@@ -1,0 +1,48 @@
+%h1 Users
+
+%p
+  Here you can see all the users in the system, and some basic information about them.  Deleting the user will remove all the access tokens they have, which enable them to access picutres and other items in the system.  It will also remove all third-party account associations they have, meaning they will not be able to log in anymore.
+
+%p
+  You can create new users by entering their email address in the list of people to invite to see new items.  When they redeem the invitation, it will create a new user account for them automatically.
+
+%table.users
+  %tr.heading
+    %th
+    %th Name
+    %th Email
+    %th Number of tokens
+    %th Date Created
+  - @users.each do |user|
+    %tr.user
+      %td.actions
+        = #button_to "edit", url(:share, :edit, :id => token.id), :method => :get
+        = button_to "delete", url(:sessions, :user, :id => user.id), :method => :delete
+      %td.name= user.name
+      %td.email= user.email
+      %td.count= user.access_tokens.count
+      %td.time= user.created_at
+
+%h1 Invitations
+
+%p
+  These are the invitations that have not yet been redeemed.  They will be automatically deleted once they are 28 days old.
+
+%table.invitations
+  %tr.heading
+    %th
+    %th Message
+    %th Email
+    %th From
+    %th Number of items
+    %th Age
+  - @invitations.each do |invitation|
+    %tr.invitation
+      %td.actions
+        = #button_to "edit", url(:share, :edit, :id => token.id), :method => :get
+        = button_to "delete", url(:share, :invitation, :id => invitation.id), :method => :delete
+      %td.message= invitation.message
+      %td.email= invitation.user.email
+      %td.name= invitation.from.name.split(' ')[0]
+      %td.count= invitation[:items].count
+      %td.time= "#{((Time.now - invitation.created_at) / 86400).to_i} days"
