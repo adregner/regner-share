@@ -1,7 +1,8 @@
 .DS_Store
-log/**/*
+log
 tmp/**/*
 bin/*
 vendor/gems/*
 !vendor/gems/cache/
-.sass-cache/*Gemfile.lock
+.sass-cache/*
+Gemfile.lock
