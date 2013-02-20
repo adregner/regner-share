@@ -3,7 +3,7 @@
 - elsif values["._id"]
   = link_to image_tag('unknown.png', {"data-id" => values["._id"], :class => :item}), "#{request.path}/#{item}"
 - else
-  = link_to image_tag('folder.png', {"data-id" => values["._id"], :class => :item}), "#{request.path}/#{item}"
+  = link_to image_tag('folder.png', {"data-id" => values["._id"], :class => "item folder"}), "#{request.path}/#{item}"
 
 .info
   - if values["._id"] # this is a file

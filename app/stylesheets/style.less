@@ -34,7 +34,7 @@ body {
   }
 }
 
-#items {
+.items {
   clear: both;
 
   div.item {
@@ -61,4 +61,27 @@ body {
       color: blue;
   }
   a.item:hover { color: black; }
+}
+
+#shared_items {
+  font-size: 10pt;
+
+  div.item {
+    width: 100px;
+    height: 120px;
+    padding: 5px;
+    margin: 5px;
+
+    .info {
+      margin: 2px 0 0 0;
+
+      a { display: none; } /* hide the share link */
+    }
+  }
+}
+
+#admin_actions {
+  border: 1px solid #ddd;
+  padding: 10px;
+  background: #f4f4ff;
 }

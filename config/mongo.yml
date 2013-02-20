@@ -3,4 +3,4 @@ development:
     default:
       database: regner_share
       hosts:
-        - localhost:27017
+        - 10.10.1.10:27017

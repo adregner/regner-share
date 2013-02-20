@@ -7,4 +7,14 @@
     =javascript_include_tag 'protopak', 'prototype-ujs', 'modalbox', 'application'
   %body
     .flash=[:error, :warning, :notice].map { |type| flash_tag(type, :class => "message #{type}") }.join
+    - if current_account
+      #navigation
+        %ul
+          %li= link_to "View all items", url(:view, :tree)
+          %li= link_to "Profile", url(:sessions, :profile)
+          %li= link_to "Logout", url(:sessions, :logout)
+          - if @prev_item and @next_item
+            %hr
+            %li= link_to "Previous page", "#{request.path}?start=#{@prev_item}", :class => :xhr, "data-target" => :items
+            %li= link_to "Next page", "#{request.path}?start=#{@next_item}", :class => :xhr, "data-target" => :items
     =yield

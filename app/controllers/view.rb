@@ -28,13 +28,26 @@ RegnerShare.controllers :view do
     else
       @items = found[0]
 
-      # sort them with "directories" on top, and convert back to a hash
+      # sort them with "directories" on top
       @items = @items.sort_by {|k, v| prefix = v["._id"] ? "10_" : "00_"; prefix + k }
+
+      # slice out the "page" we want
+      start = params[:start].to_i || 0
+      num_items = 20
+      @prev_item = [0, (start - num_items)].max
+      @next_item = (start + num_items) > @items.count ? start : (start + num_items)
+      @items = @items[start...(start + num_items)]
+
+      # convert back to a hash
       @items = @items.inject({}) { |r, s| r.merge! ({s[0] => s[1]}) }
     end
 
     @rm_prefix = found[1]
-    render 'view/items'
+    if request.xhr?
+      render 'view/items', :layout => false
+    else
+      render 'view/items'
+    end
   end
 
   get :auth_check do

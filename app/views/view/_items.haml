@@ -1,0 +1,3 @@
+- @items.each_pair do |item, values|
+  %div.item{id: "item-#{values["._id"] || item.gsub(/[^a-z0-9_-]+/i, '')}", "data-name" => item}
+    = partial 'view/single_item', :locals => { :item => item, :values => values }
