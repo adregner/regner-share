@@ -9,6 +9,7 @@ gem 'rake'
 gem 'sinatra-flash', :require => 'sinatra/flash'
 
 # Component requirements
+gem 'tilt', '1.3.3'
 gem 'therubyracer'
 gem 'rack-less'
 gem 'rack-thumb'
@@ -31,12 +32,8 @@ require 'digest/md5'
 # Test requirements
 
 # Padrino Stable Gem
-#gem 'padrino', '0.10.7'
+gem 'padrino', '0.10.7'
 
-# Or Padrino Edge
- gem 'padrino', :git => 'git://github.com/padrino/padrino-framework.git'
-
-# Or Individual Gems
-# %w(core gen helpers cache mailer admin).each do |g|
-#   gem 'padrino-' + g, '0.10.7'
-# end
+group :production do
+  gem 'unicorn'
+end
