@@ -29,13 +29,15 @@ class RegnerShare < Padrino::Application
     request.session_options[:skip] = true unless request.path_info.match /^\/(auth|invitations|sessions)\//
   end
 
+  RegnerSettings = settings
+
   # Auth middleware
   use OmniAuth::Builder do
-    provider :twitter, settings.oauth_providers[:twitter][:id], settings.oauth_providers[:twitter][:key]
-    provider :facebook, settings.oauth_providers[:facebook][:id], settings.oauth_providers[:facebook][:key], { scope: 'email' }
-    provider :google_oauth2, settings.oauth_providers[:google_oauth2][:id], settings.oauth_providers[:google_oauth2][:key], {access_type: 'online', approval_prompt: ''}
-    provider :github, settings.oauth_providers[:github][:id], settings.oauth_providers[:github][:key], {scope: "user"}
-    provider :dropbox, settings.oauth_providers[:dropbox][:id], settings.oauth_providers[:dropbox][:key]
+    provider :twitter, RegnerSettings.oauth_providers[:twitter][:id], RegnerSettings.oauth_providers[:twitter][:key]
+    provider :facebook, RegnerSettings.oauth_providers[:facebook][:id], RegnerSettings.oauth_providers[:facebook][:key], { scope: 'email' }
+    provider :google_oauth2, RegnerSettings.oauth_providers[:google_oauth2][:id], RegnerSettings.oauth_providers[:google_oauth2][:key], {access_type: 'online', approval_prompt: ''}
+    provider :github, RegnerSettings.oauth_providers[:github][:id], RegnerSettings.oauth_providers[:github][:key], {scope: "user"}
+    provider :dropbox, RegnerSettings.oauth_providers[:dropbox][:id], RegnerSettings.oauth_providers[:dropbox][:key]
   end
 
   OmniAuth.config.full_host = "http://share.aregner.com"
