@@ -37,3 +37,9 @@ gem 'padrino', '0.10.7'
 group :production do
   gem 'unicorn'
 end
+
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-rvm'
+  gem 'capistrano-bundler'
+end

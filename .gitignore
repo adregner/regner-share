@@ -5,5 +5,4 @@ bin/*
 vendor/gems/*
 !vendor/gems/cache/
 .sass-cache/*
-Gemfile.lock
 config/credentials.yml
