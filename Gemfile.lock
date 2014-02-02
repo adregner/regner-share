@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/adregner/capistrano-unicorn.git
+  revision: 7790fcd01913da8d372679e3c44eff2b69576968
+  branch: capistrano3
+  specs:
+    capistrano-unicorn (0.3.0)
+      capistrano (~> 3.1.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -173,6 +181,7 @@ DEPENDENCIES
   capistrano
   capistrano-bundler
   capistrano-rvm
+  capistrano-unicorn!
   haml
   less
   mimemagic

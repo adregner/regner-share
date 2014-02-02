@@ -39,7 +39,8 @@ group :production do
 end
 
 group :development do
-  gem 'capistrano'
-  gem 'capistrano-rvm'
-  gem 'capistrano-bundler'
+  gem 'capistrano', :require => false
+  gem 'capistrano-rvm', :require => false
+  gem 'capistrano-bundler', :require => false
+  gem 'capistrano-unicorn', :git => 'git://github.com/adregner/capistrano-unicorn.git', :branch => 'capistrano3', :require => false
 end
