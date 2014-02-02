@@ -5,6 +5,11 @@ class RegnerShare < Padrino::Application
   register Padrino::Helpers
   register Padrino::Admin::AccessControl
 
+  external_config = YAML.load_file(File.join(File.dirname(__FILE__), '../config/credentials.yml'))
+  external_config.each_pair do |key, value|
+    set key, value
+  end
+
   # automatic thumbnailing
   # TODO make a helper function and config options so that we can have a secret
   use Rack::Thumb #, :prefix => "/dl/" # :secret => "e08thq3t0fhsdiohjrw", :keylength => 10}
@@ -26,11 +31,11 @@ class RegnerShare < Padrino::Application
 
   # Auth middleware
   use OmniAuth::Builder do
-    provider :twitter, Creds[:twitter][:id], Creds[:twitter][:key]
-    provider :facebook, Creds[:facebook][:id], Creds[:facebook][:key], { scope: 'email' }
-    provider :google_oauth2, Creds[:google_oauth2][:id], Creds[:google_oauth2][:key], {access_type: 'online', approval_prompt: ''}
-    provider :github, Creds[:github][:id], Creds[:github][:key], {scope: "user"}
-    provider :dropbox, Creds[:dropbox][:id], Creds[:dropbox][:key]
+    provider :twitter, settings.oauth_providers[:twitter][:id], settings.oauth_providers[:twitter][:key]
+    provider :facebook, settings.oauth_providers[:facebook][:id], settings.oauth_providers[:facebook][:key], { scope: 'email' }
+    provider :google_oauth2, settings.oauth_providers[:google_oauth2][:id], settings.oauth_providers[:google_oauth2][:key], {access_type: 'online', approval_prompt: ''}
+    provider :github, settings.oauth_providers[:github][:id], settings.oauth_providers[:github][:key], {scope: "user"}
+    provider :dropbox, settings.oauth_providers[:dropbox][:id], settings.oauth_providers[:dropbox][:key]
   end
 
   OmniAuth.config.full_host = "http://share.aregner.com"
@@ -52,10 +57,10 @@ class RegnerShare < Padrino::Application
   end
 
   set :delivery_method, :smtp => {
-    address: Creds[:mail][:host],
+    address: settings.mail_settings[:host],
     port: 587,
-    user_name: Creds[:mail][:user],
-    password: Creds[:mail][:password],
+    user_name: settings.mail_settings[:user],
+    password: settings.mail_settings[:password],
     authentication: :plain,
     enable_starttls_auto: true
   }
